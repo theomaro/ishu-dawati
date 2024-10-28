@@ -5,12 +5,12 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("All Tickets")
+    return render(request, "tickets/index.html")
 
 
 def detail(request, ticket_id):
-    return HttpResponse(f"Ticket #{ticket_id}")
+    return render(request, "tickets/detail.html", {"ticket_id": ticket_id})
 
 
 def new(request):
-    return HttpResponse("New Ticket")
+    return render(request, "tickets/new.html")
