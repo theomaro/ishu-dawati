@@ -1,6 +1,6 @@
-# Issue Tracking Management System
+# Ishu Dawati
 
-A simple [Issue Tracking](./) Application that support Ticket System. The app allows users to raise an issue and track if it has resolved or not.
+A simple [Issue Tracking](./) Management System that support Ticket System. The app allows users to raise an issue and track if it has resolved or not.
 
 [Live Demo](./)
 
