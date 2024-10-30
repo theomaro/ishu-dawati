@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -68,7 +69,7 @@ class Ticket(models.Model):
     status = models.CharField(
         max_length=254, choices=STATUS_CHOICES, default=STATUS_OPEN
     )
-    description = models.TextField()
+    description = RichTextField()
     reference_number = models.IntegerField(null=True, blank=True)
     attachment = models.FileField("/downloads", null=True, blank=True)
     reported_on = models.DateTimeField(auto_now_add=True)
