@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 from ckeditor.fields import RichTextField
 
 # Create your models here.
@@ -81,3 +83,21 @@ class Ticket(models.Model):
 
     def __str__(self):
         return f"{self.reported_by} - {self.subject}"
+
+
+class Comment(models.Model):
+    object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveBigIntegerField()
+    author = GenericForeignKey("object_type", "object_id")
+    ticket = models.ForeignKey(
+        Ticket, on_delete=models.CASCADE, related_name="comments"
+    )
+    content = RichTextField()
+    attachment = models.FileField("/downloads", null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_at", "ticket"]
+
+    def __str__(self):
+        return f"Comment by {self.author} on Ticket {self.ticket.id}"
