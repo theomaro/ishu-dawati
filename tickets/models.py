@@ -101,3 +101,23 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.author} on Ticket {self.ticket.id}"
+
+
+class ActivityLog(models.Model):
+    ACTION_CHOICES = [
+        ("status_change", "Status Change"),
+        ("assigned", "Assigned"),
+        ("commented", "Comment Added"),
+        ("reopened", "Reopened"),
+    ]
+
+    ticket = models.ForeignKey(
+        Ticket, on_delete=models.CASCADE, related_name="activity_logs"
+    )
+    action_type = models.CharField(max_length=254, choices=ACTION_CHOICES)
+    centre = models.ForeignKey(Centre, on_delete=models.SET_NULL, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    notes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.get_action_type_display()} on Ticket {self.ticket.id} by {self.centre}"
