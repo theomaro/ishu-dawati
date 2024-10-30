@@ -86,9 +86,9 @@ class Ticket(models.Model):
 
 
 class Comment(models.Model):
-    object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveBigIntegerField()
-    author = GenericForeignKey("object_type", "object_id")
+    author = GenericForeignKey("content_type", "object_id")
     ticket = models.ForeignKey(
         Ticket, on_delete=models.CASCADE, related_name="comments"
     )
